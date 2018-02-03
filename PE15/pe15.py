@@ -5,37 +5,30 @@
 # 1-29-2017
 
 def main():
-    grid = []
-    for i in xrange(0,20):
-        grid.append([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
+    # Solving with math. It is a combination problem with the formula
+    #       n!/r!(n-r)! = n(n-1)(n-2)... (n-r+1) / r!
+    #
+    #   As you can see the amount of Downs (D) and rights (R) do not change through out.
+    #
+    #   DDRR
+    #   DRDR
+    #   RDRD
+    #   RRDD
+    #   RDDR
+    #   DRRD
 
-    for i in grid: print i
-    return 1
-    count = 0
-    all_found = False
-    while not all_found:
-        idx = (0,0)
-        while not idx == (19,19):
-            print idx
-            # Go down
-            if idx[1] < 19 and grid[idx[0]][idx[1] + 1] == 0:
-                grid[idx[0]][idx[1] + 1] = 1
-                idx = (idx[0], idx[1] + 1)
-            # Go right
-            elif idx[0] < 19 and grid[idx[0] + 1][idx[1]] == 0:
-                grid[idx[0] + 1][idx[1]] = 1
-                idx = (idx[0] + 1, idx[1])
-            else:
-                all_found = True
-                break
+    numerator = 1
+    denominator = 1
 
-            if idx == (19,19):
-                grid[19][19] = 0
-                count = count + 1
-
-    print 'There are %s ways to the bottom right corner' % count
+    for i in xrange(40,20,-1):
+        numerator = i * numerator
+    for i in xrange(20,0,-1):
+        denominator = i * denominator
 
 
+    count = numerator / denominator
+
+    print 'There are %s ways to the bottom right corner of a 20 X 20 grid' % count
 
 if __name__ == "__main__":
         main()
